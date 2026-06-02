@@ -1,4 +1,5 @@
 class Solution:
+    List = None
     def moveZeroes(self, nums: List[int]) -> None:
         write_index = 0
         for i in range(len(nums)):
