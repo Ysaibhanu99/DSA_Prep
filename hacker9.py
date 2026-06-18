@@ -25,14 +25,7 @@ def timeConversion(s):
     
     
     
-    # 3. Apply the 12-hour to 24-hour rules
-    if period == "PM" and hh != "12":
-        hh = str(int(hh) + 12)
-    elif period == "AM" and hh == "12":
-        hh = "00"
-        
-    # 4. Return the formatted 24-hour time string
-    return f"{hh}:{mm}:{ss}"
+    
     # Write your code here
 
 if __name__ == '__main__':
