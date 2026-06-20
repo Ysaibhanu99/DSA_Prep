@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Manager</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  #taskInput {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 8px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #2563eb;
+    color: #fff;
+  }
+
+  button:hover {
+    background-color: #1d4ed8;
+  }
+
+  .dark-mode button {
+    background-color: #475569;
+  }
+
+  .dark-mode button:hover {
+    background-color: #334155;
+  }
+
+  #toggleDarkModeBtn {
+    display: block;
+    margin: 0 auto 20px auto;
+    background-color: #334155;
+  }
+
+  ul#taskList {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul#taskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  .dark-mode ul#taskList li {
+    background-color: #2d3748;
+  }
+
+  .task-text {
+    word-break: break-word;
+    margin-right: 10px;
+  }
+
+  .delete-btn {
+    background-color: #dc2626;
+    flex-shrink: 0;
+  }
+
+  .delete-btn:hover {
+    background-color: #b91c1c;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Task Manager</h1>
+
+  <div class="controls">
+    <input type="text" id="taskInput" placeholder="Enter a task...">
+    <button id="addTaskBtn">Add Task</button>
+  </div>
+
+  <button id="toggleDarkModeBtn">Toggle Dark Mode</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    const taskInput = document.querySelector('#taskInput');
+    const addTaskBtn = document.querySelector('#addTaskBtn');
+    const taskList = document.querySelector('#taskList');
+    const toggleDarkModeBtn = document.querySelector('#toggleDarkModeBtn');
+
+    function addTask() {
+      const taskText = taskInput.value.trim();
+
+      if (taskText === '') {
+        return;
+      }
+
+      const li = document.createElement('li');
+
+      const span = document.createElement('span');
+      span.textContent = taskText;
+      span.classList.add('task-text');
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.classList.add('delete-btn');
+
+      deleteBtn.addEventListener('click', function () {
+        li.remove();
+      });
+
+      li.append(span, deleteBtn);
+      taskList.append(li);
+
+      taskInput.value = '';
+      taskInput.focus();
+    }
+
+    addTaskBtn.addEventListener('click', addTask);
+
+    taskInput.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        addTask();
+      }
+    });
+
+    toggleDarkModeBtn.addEventListener('click', function () {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+
+</body>
+</html>
