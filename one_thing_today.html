@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The One-Thing Today Board</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+  }
+  .card {
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 360px;
+    text-align: center;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  button {
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 6px;
+    background: #fafafa;
+  }
+  button:hover {
+    background: #eee;
+  }
+  #displayTask {
+    margin: 16px 0;
+    font-size: 18px;
+    color: #333;
+    min-height: 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>One Thing Today</h1>
+  <input type="text" id="taskInput" placeholder="What is your focus today?">
+  <button id="saveBtn">Save</button>
+  <h2 id="displayTask">No focus set yet.</h2>
+  <button id="clearBtn">Clear</button>
+</div>
+
+<script>
+function loadTask() {
+  const saved = localStorage.getItem('focus');
+  const display = document.getElementById('displayTask');
+  display.textContent = saved ? saved : 'No focus set yet.';
+}
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const input = document.getElementById('taskInput');
+  const value = input.value.trim();
+
+  if (value === '') {
+    alert("Don't leave it blank!");
+    return;
+  }
+
+  localStorage.setItem('focus', value);
+  input.value = '';
+  loadTask();
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  localStorage.removeItem('focus');
+  loadTask();
+});
+
+window.onload = loadTask;
+</script>
+
+</body>
+</html>
